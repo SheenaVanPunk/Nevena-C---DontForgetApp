@@ -1,29 +1,25 @@
 
-
 class User:
-    def __init__(self, user_id, username, password):
-        self.user_id = user_id
-        self.username = username
-        self.password = password
+    def __init__(self, username, password):
+        self._user_id = ""
+        self._username = username
+        self._password = password
 
     def get_username(self):
-        return self.username
+        self._username = input("Enter username: \n")
+        return self._username
 
-    def set_username(self):
-        self.username = input("Enter username: \n")
-        return self.username
+    def get_password(self):
+        self._password = input("Enter password: \n")
+        return self._password
 
-    def set_password(self):
-        self.password = input("Enter password: \n")
-        return self.password
+    def set_username(self, username):
+        self._username = username
 
-    def register_user(self):
-        username = self.set_username()
-        password = self.set_password()
+    def set_password(self, password):
+        self._password = password
 
-
-        # write new user details in the user table and give it an auto populated id
-
-
-    def login_user(self):
-    # make a connection with table users
+    def get_user_id(self, cursor):
+        query = "SELECT user_id FROM users WHERE username = '{}'".format(self._username)
+        cursor.execute(query)
+        self._user_id = cursor.fetchone()[0]
