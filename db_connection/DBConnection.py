@@ -3,10 +3,10 @@ from sqlalchemy import create_engine
 
 
 db = mysql.connector.connect(
-    host=host,
-    user=user,
-    password=password,
-    database=dbname
+    host="localhost",
+    user="root",
+    password="root",
+    database="todo_db"
 )
 
 my_cursor = db.cursor();
