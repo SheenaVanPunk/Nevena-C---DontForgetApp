@@ -20,4 +20,3 @@ print("Username taken from the object: ", username)
 
 user.set_password()
 
-user.get_user_id()

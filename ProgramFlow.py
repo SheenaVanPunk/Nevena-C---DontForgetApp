@@ -39,7 +39,7 @@ class ProgramFlow:
             if user_input == 'yes':
                 task.create_new_task(db, cursor, user_id)
             else:
-                print("Sad to see you go!")
+                print("\nSad to see you go!")
         elif flow == '2':
             task.create_new_task(db, cursor, user_id)
         else:

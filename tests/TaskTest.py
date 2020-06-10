@@ -10,11 +10,10 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
-
-# task = Task()
-# task.set_task_due()
-# date = task.get_task_due()
-# print(date)
+task = Task()
+task.set_task_due()
+date = task.get_task_due()
+print(date)
 
 task1 = Task()
 task1.create_new_task(db, cursor, 3)
