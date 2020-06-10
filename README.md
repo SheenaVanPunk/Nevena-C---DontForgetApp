@@ -17,3 +17,6 @@ This is a console application with 2 courses of action:
 ## Registration flow
 - After user enters the username, the program checks if it is unique. If not, user is offered to pick another username until the unique username is entered.
 - After entering a password, a new account is recorded in db.
+
+## Program Flow
+![Image of FlowChat](https://github.com/SheenaVanPunk/DontForgetApp/blob/master/DontForgetApp%20ProgramFlow.jpg)
