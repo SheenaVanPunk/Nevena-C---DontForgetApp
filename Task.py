@@ -65,4 +65,4 @@ class Task:
         self.set_task_due()
         cursor.execute(query.format(user_id, self.get_description(), self.get_task_due()))
         db.commit()
-        print("Task successfully saved.")
+        print("Task successfully saved.\n")

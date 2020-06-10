@@ -13,6 +13,5 @@ cursor = db.cursor()
 
 
 program1 = ProgramFlow()
-user_id = program1.authenticate_user(db, cursor)
-program1.show_user_menu(db, cursor, user_id)
+user_id = program1.main(db, cursor)
 
