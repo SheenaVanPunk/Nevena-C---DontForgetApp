@@ -4,18 +4,32 @@ from User import User
 
 class Authentication:
 
+    def __init__(self):
+        self._user_id = ""
+
+    def get_user_id(self):
+        return self._user_id
+
     def register_user(self, db, cursor, unique=False):
         user = User()
         print("Your username must be unique.")
-        existing_usernames = self.get_all_usernames_from_db(cursor)
+        existing_usernames = self._get_all_usernames_from_db(cursor)
         while not unique:
             user.set_username()
-            unique = self.check_if_username_is_unique(user.get_username(), existing_usernames)
+            unique = self._check_if_username_is_unique(user.get_username(), existing_usernames)
         user.set_password()
-        user_id = self._insert_new_user_to_db(user.get_username(), user.get_password(), cursor, db)
-        return user_id
+        self._user_id = self._insert_new_user_to_db(user.get_username(), user.get_password(), cursor, db)
 
-        # write new user details in the user table and give it an auto populated id
+    def login_user(self, cursor):
+        user = User()
+        user.set_username()
+        user.set_password()
+        exists = self._check_if_account_exists(cursor, user, user.get_username(), user.get_password())
+        if exists:
+            self._user_id = self._get_user_id_from_db(cursor, user.get_username(), user.get_password())
+            print("Nice to see you back, " + user.get_username().title() + "!")
+        else:
+            print("This account doesn't exist. Please register account.")
 
     def _insert_new_user_to_db(self, username, password, cursor, db):
         query = "INSERT INTO users(username, password) " \
@@ -31,19 +45,8 @@ class Authentication:
         cursor.execute(query)
         return cursor.fetchone()[0]
 
-    def login_user(self, cursor):
-        user = User()
-        user.set_username()
-        user.set_password()
-        exists = self._check_if_account_exists(cursor, user, user.get_username(), user.get_password())
-        if exists:
-            user_id = self._get_user_id_from_db(cursor, user.get_username(), user.get_password())
-            print("Nice to see you back, " + user.get_username().title() + "!")
-            return user_id
-        else:
-            print("This account doesn't exist. Please register account.")
-
-    def check_if_username_is_unique(self, username, usernames_db):
+    @staticmethod
+    def _check_if_username_is_unique(username, usernames_db):
         for existing_username in usernames_db:
             if username.lower() == existing_username.lower():
                 print("This username exist. Pick another one.")
@@ -52,9 +55,7 @@ class Authentication:
         print("This username is available :-)")
         return True
 
-
-
-    def get_all_usernames_from_db(self, cursor):
+    def _get_all_usernames_from_db(self, cursor):
         query = "SELECT username FROM users"
         cursor.execute(query)
         list_of_tuples = cursor.fetchall()
