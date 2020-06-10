@@ -1,14 +1,9 @@
 from datetime import datetime
 
-from User import User
-
-
 class Task:
     def __init__(self):
         self._description = ""
-        # self._time_created = ""  # type datetime
         self._task_due = ""  # type date
-        self._user_id = ""
 
     def set_description(self):
         self._description = input("Enter task description:\n")
@@ -25,15 +20,6 @@ class Task:
 
     def get_task_due(self):
         return self._task_due
-
-    def set_user_id(self, user_id):
-        self._user_id = user_id
-
-    def get_time_created(self, cursor, task_id):
-        query = "SELECT time_created FROM tasks WHERE task_id = {}";
-        cursor.execute(query.format(task_id))
-        time_created = cursor.fetchone()[0]
-        return time_created
 
     def show_all_tasks_for_user(self, cursor, user_id):
         query = "SELECT task_description, task_due, time_created " \
@@ -66,3 +52,10 @@ class Task:
         cursor.execute(query.format(user_id, self.get_description(), self.get_task_due()))
         db.commit()
         print("Task successfully saved.\n")
+
+# def get_time_created(self, cursor, task_id):
+#     query = "SELECT time_created FROM tasks WHERE task_id = {}";
+#     cursor.execute(query.format(task_id))
+#     time_created = cursor.fetchone()[0]
+#     return time_created
+# self._time_created = ""  # type datetime
