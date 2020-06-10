@@ -13,11 +13,10 @@ class ProgramFlow:
         flow = input("1) Log in\n2) Sign up")
         if flow == 1:
             user_id = Authentication.login_user()
-            print("Nice to see you back, " + username + "!")
+
         elif flow == 2:
-            print("Your username must be unique.")
             user_id = Authentication.register_user()
-            print("New user account has been saved.")
+
         else:
             print("Invalid entry.")
 

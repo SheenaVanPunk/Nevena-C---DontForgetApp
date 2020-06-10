@@ -1,18 +1,67 @@
 import User
-from db_connection.DBConnection import cursor
+from User import User
 
 
 class Authentication:
-    def __init__(self):
-        self._user = User()
 
-    def register_user(self):
-        username = self._user.set_username()
-        password = self._user.set_password()
-        return User.get_user_id(cursor)
+    def register_user(self, cursor, db, unique=False):
+        user = User()
+        print("Your username must be unique.")
+        while not unique:
+            user.set_username()
+            unique = self.check_if_username_is_unique(user.get_username(), cursor)
+        user.set_password()
+        user_id = self._insert_new_user_to_db(user.get_username(), user.get_password(), cursor, db)
+        return user_id
 
         # write new user details in the user table and give it an auto populated id
 
-    def login_user(self):
-    # make a connection with table users
-        return User.get_user_id()
+    def _insert_new_user_to_db(self, username, password, cursor, db):
+        query = "INSERT INTO users(username, password) " \
+                "VALUES(\'{0}\', \'{1}\')"
+        full = query.format(username, password)
+        cursor.execute(full)
+        db.commit()
+        print("You account is successfully registered, " + username + "!")
+        return self._get_user_id_from_db(cursor, username, password)
+
+    def _get_user_id_from_db(self, cursor, username, password):
+        query = "SELECT user_id FROM users WHERE username = '{0}' AND password = '{1}'".format(username, password)
+        cursor.execute(query)
+        return cursor.fetchone()[0]
+
+    def login_user(self, cursor):
+        user = User()
+        user.set_username()
+        user.set_password()
+        exists = self._check_if_account_exists(cursor, user, user.get_username(), user.get_password())
+        if exists:
+            user_id = self._get_user_id_from_db(cursor, user.get_username(), user.get_password())
+            print("Nice to see you back, " + user.get_username().title() + "!")
+            return user_id
+        else:
+            print("This account doesn't exist. Please register it.")
+
+    def check_if_username_is_unique(self, username, cursor):
+        query = "SELECT * FROM users WHERE username = '{}'".format(username)
+        cursor.execute(query)
+        result = cursor.fetchone()
+        if result is None:
+            return True
+        elif result[1] == username:
+            print("This username exist. Pick another one.")
+            return False
+
+
+    def _check_if_account_exists(self, cursor, user, username, password):
+        query = "SELECT username, password FROM users WHERE username = '{}'".format(username)
+        cursor.execute(query)
+        result = cursor.fetchone()
+        if result is None:
+            return False
+        elif username == result[0] and password == result[1]:
+            return True
+        elif username == result[0] and password != result[1]:
+            while password != result[1]:
+                "Password incorrect. Enter your password again."
+                user.set_password()

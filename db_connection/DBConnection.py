@@ -1,6 +1,5 @@
 import mysql.connector
-from sqlalchemy import create_engine
-from tabulate import tabulate
+
 
 db = mysql.connector.connect(
     host="localhost",
@@ -9,7 +8,7 @@ db = mysql.connector.connect(
     database="todo_db"
 )
 
-cursor = db.cursor();
+cursor = db.cursor()
 #
 # test_data = my_cursor.execute("SELECT * FROM tasks")
 # print(test_data)
@@ -47,7 +46,7 @@ fetch_all_tasks_for_user_query = "SELECT task_description, task_due, time_create
                                  "ON tasks.user_id = users.user_id " \
                                  "WHERE tasks.user_id = {}"
 this = fetch_all_tasks_for_user_query.format("1")
-cursor.execute(this)
+# cursor.execute(this)
 tasks = cursor.fetchall()
 count = 1
 for task in tasks:
