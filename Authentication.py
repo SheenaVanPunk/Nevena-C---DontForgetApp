@@ -4,12 +4,13 @@ from User import User
 
 class Authentication:
 
-    def register_user(self, cursor, db, unique=False):
+    def register_user(self, db, cursor, unique=False):
         user = User()
         print("Your username must be unique.")
+        existing_usernames = self.get_all_usernames_from_db(cursor)
         while not unique:
             user.set_username()
-            unique = self.check_if_username_is_unique(user.get_username(), cursor)
+            unique = self.check_if_username_is_unique(user.get_username(), existing_usernames)
         user.set_password()
         user_id = self._insert_new_user_to_db(user.get_username(), user.get_password(), cursor, db)
         return user_id
@@ -22,7 +23,7 @@ class Authentication:
         full = query.format(username, password)
         cursor.execute(full)
         db.commit()
-        print("You account is successfully registered, " + username + "!")
+        print("You account is successfully registered, " + username.title() + "!")
         return self._get_user_id_from_db(cursor, username, password)
 
     def _get_user_id_from_db(self, cursor, username, password):
@@ -42,15 +43,22 @@ class Authentication:
         else:
             print("This account doesn't exist. Please register account.")
 
-    def check_if_username_is_unique(self, username, cursor):
-        query = "SELECT * FROM users WHERE username = '{}'".format(username)
+    def check_if_username_is_unique(self, username, usernames_db):
+        for existing_username in usernames_db:
+            if username.lower() == existing_username.lower():
+                print("This username exist. Pick another one.")
+                return False
+
+        print("This username is available :-)")
+        return True
+
+
+
+    def get_all_usernames_from_db(self, cursor):
+        query = "SELECT username FROM users"
         cursor.execute(query)
-        result = cursor.fetchone()
-        if result is None:
-            return True
-        elif result[1] == username:
-            print("This username exist. Pick another one.")
-            return False
+        list_of_tuples = cursor.fetchall()
+        return ["".join(i) for i in list_of_tuples]
 
     def _check_if_account_exists(self, cursor, user, username, password):
         query_username = "SELECT * FROM users WHERE username = '{}'"
@@ -81,4 +89,3 @@ class Authentication:
                     return True
 
         return False
-

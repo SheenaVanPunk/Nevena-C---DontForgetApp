@@ -10,11 +10,11 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
-# new = Authentication()
-# user_id = new.register_user(cursor, db)
-# print(user_id)
+new = Authentication()
+user_id = new.register_user(db, cursor)
+print(user_id)
 
-
+"""
 # username exists, correct password
 # "nairobi", "vrlotajnalozinka"
 user1 = Authentication()
@@ -46,3 +46,4 @@ print("Expected: correct user id")
 
 cursor.close()
 db.close()
+"""
