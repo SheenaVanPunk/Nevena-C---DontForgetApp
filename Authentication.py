@@ -40,7 +40,7 @@ class Authentication:
             print("Nice to see you back, " + user.get_username().title() + "!")
             return user_id
         else:
-            print("This account doesn't exist. Please register it.")
+            print("This account doesn't exist. Please register account.")
 
     def check_if_username_is_unique(self, username, cursor):
         query = "SELECT * FROM users WHERE username = '{}'".format(username)
@@ -52,16 +52,33 @@ class Authentication:
             print("This username exist. Pick another one.")
             return False
 
-
     def _check_if_account_exists(self, cursor, user, username, password):
-        query = "SELECT username, password FROM users WHERE username = '{}'".format(username)
-        cursor.execute(query)
-        result = cursor.fetchone()
-        if result is None:
+        query_username = "SELECT * FROM users WHERE username = '{}'"
+        query_password = "SELECT * FROM users WHERE password = '{}'"
+
+        cursor.execute(query_username.format(username))
+        result_u = cursor.fetchall()
+
+        cursor.execute(query_password.format(password))
+        result_p = cursor.fetchall()
+
+        if len(result_u) > 0 and len(result_p) > 0:
+            if result_u[0] == result_p[0]:
+                return True
+            else:
+                return False
+
+        if len(result_u) == 0:
             return False
-        elif username == result[0] and password == result[1]:
-            return True
-        elif username == result[0] and password != result[1]:
-            while password != result[1]:
-                "Password incorrect. Enter your password again."
+
+        if len(result_p) == 0:
+            while len(result_p) == 0:
+                print("Password incorrect. Enter your password again.")
                 user.set_password()
+                cursor.execute(query_password.format(user.get_password()))
+                result_p = cursor.fetchall()
+                if len(result_p) > 0 and result_p[0] == result_u[0]:
+                    return True
+
+        return False
+

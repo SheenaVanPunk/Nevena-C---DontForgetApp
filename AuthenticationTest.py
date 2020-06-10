@@ -14,27 +14,20 @@ cursor = db.cursor()
 # user_id = new.register_user(cursor, db)
 # print(user_id)
 
-# existing = Authentication()
-# e_user_id = existing.login_user(cursor)
-# print(e_user_id)
-
-# usere = Authentication();
-# exists = usere.check_if_username_is_unique("nairobi", cursor)
-# print(exists)
 
 # username exists, correct password
 # "nairobi", "vrlotajnalozinka"
-"""user1 = Authentication()
+user1 = Authentication()
 account_exists = user1.login_user(cursor)
 print("Account exists:", account_exists)
-print("Expected: True")
+print("Expected: correct user id")
 
 #username doesn't exist, password exists
 # "denver", "vrlotajnalozinka"
 user2 = Authentication()
 account_exists = user2.login_user(cursor)
 print("Account exists:", account_exists)
-print("Expected: correct user id")
+print("Expected: None")
 
 
 #username doesn't exists, password doesn't exists
@@ -42,14 +35,14 @@ print("Expected: correct user id")
 user2 = Authentication()
 account_exists = user2.login_user(cursor)
 print("Account exists:", account_exists)
-print("Expected: None")"""
+print("Expected: None")
 
 # username exists, wrong password
 # "nairobi", "opala"
 user2 = Authentication()
 account_exists = user2.login_user(cursor)
 print("Account exists:", account_exists)
-print("Expected: True - but password input needs to be repeated")
+print("Expected: correct user id")
 
 cursor.close()
 db.close()

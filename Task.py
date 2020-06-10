@@ -4,10 +4,10 @@ from User import User
 
 
 class Task:
-    def __init__(self, description, task_due):
-        self._description = description
+    def __init__(self):
+        self._description = ""
         self._time_created = ""  # type datetime
-        self._task_due = task_due  # type date
+        self._task_due = ""  # type date
         self._user_id = ""
 
     def set_description(self, description):
