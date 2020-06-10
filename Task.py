@@ -35,8 +35,7 @@ class Task:
         time_created = cursor.fetchone()[0]
         return time_created
 
-    @staticmethod
-    def show_all_tasks_for_user(cursor, user_id):
+    def show_all_tasks_for_user(self, cursor, user_id):
         query = "SELECT task_description, task_due, time_created " \
                 "FROM tasks " \
                 "JOIN users " \
@@ -44,8 +43,9 @@ class Task:
                 "WHERE tasks.user_id = {}"
         cursor.execute(query.format(user_id))
         tasks = cursor.fetchall()
-        if tasks is None:
-            print("You don't have any saved tasks yet. Would you like to create one now?")
+        if len(tasks) == 0:
+            return input("You don't have any saved tasks yet. Would you like to create one now?\n"
+                         "yes\nno\n")
         else:
             count = 1
             for task in tasks:
