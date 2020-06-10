@@ -39,8 +39,13 @@ class ProgramFlow:
         task = Task()
         flow = input("1) See my upcoming tasks\n2) Save a new task\n")
         if flow == '1':
-            task.show_all_tasks_for_user(cursor, user_id)
+            user_input = task.show_all_tasks_for_user(cursor, user_id)
+            if user_input == 'yes':
+                task.create_new_task(db, cursor, user_id)
+            else:
+                print("Sad to see you go!")
         elif flow == '2':
             task.create_new_task(db, cursor, user_id)
         else:
             print("Invalid entry.")
+
