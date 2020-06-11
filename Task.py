@@ -27,7 +27,7 @@ class Task:
         print("\nTime? (format: HH:MM)")
         h = int(input("Hour: "))
         m = int(input("Minutes: "))
-        self._due_time = time(h, m).strftime('%H:%M')
+        self._due_time = time(h, m).strftime('%H:%M:%S')
 
     def get_due_date(self):
         return self._due_date
@@ -63,7 +63,7 @@ class Task:
         query = "INSERT INTO tasks(user_id, task_description, due_date, due_time) " \
                 "VALUES({0}, '{1}', '{2}', '{3}')"
 
-        print("To save a new task, you will have to enter task description and time when the task is due.")
+        print("To save a new task, you will have to enter its description and date and time when the task is due.")
         self.set_description()
         self.set_due_date()
         self.set_due_time()
@@ -75,3 +75,6 @@ class Task:
     def show_historical_tasks_for_user(self, cursor, user_id):
         pass
 
+    # doesn't allow user to save a duplicate of a task with the same descr, due date & time
+    def check_if_task_is_a_duplicate(self, cursor, user_id):
+        pass

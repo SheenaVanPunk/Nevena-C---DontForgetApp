@@ -29,7 +29,7 @@ class Authentication:
             self._user_id = self._get_user_id_from_db(cursor, user.get_username(), user.get_password())
             print("Nice to see you back, " + user.get_username().title() + "!")
         else:
-            print("This account doesn't exist. Please register account.")
+            print("This account doesn't exist. Please sign up.")
 
     def _insert_new_user_to_db(self, username, password, cursor, db):
         query = "INSERT INTO users(username, password) " \
@@ -50,7 +50,7 @@ class Authentication:
     def _check_if_username_is_unique(username, usernames_db):
         for existing_username in usernames_db:
             if username.lower() == existing_username.lower():
-                print("This username exist. Pick another one.")
+                print("This username already exist. Pick another one.")
                 return False
 
         print("This username is available :-)")
@@ -86,7 +86,7 @@ class Authentication:
 
         if len(results_p) == 0:
             while len(result_p) == 0:
-                print("Password incorrect. Enter your password again.")
+                print("Password incorrect. Try again.")
                 user.input_password()
                 cursor.execute(query_password.format(user.get_password()))
                 result_p = cursor.fetchall()

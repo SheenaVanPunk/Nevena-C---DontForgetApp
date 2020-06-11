@@ -15,7 +15,7 @@ class ProgramFlow:
 
     def main(self, _db, _cursor):
         auth = Authentication()
-        print("Welcome to DontForget App!\nHere, you can save all the stuff you shouldn't forget and review them "
+        print("Welcome to DontForget App!\nHere, you can save all the stuff you wouldn't like to forget and review them "
               "later.\n")
 
         self.authenticate_user(_db, _cursor, auth)
@@ -35,10 +35,12 @@ class ProgramFlow:
             self.authenticate_user(db, cursor, auth)
 
     def show_user_menu(self, db, cursor, auth):
+        print("* * * * * * * * * * * * * * * * * *")
         print("What would you like to do today?")
         task = Task()
         user_id = auth.get_user_id()
         flow = input("1) See my upcoming tasks\n2) Save a new task\n3) Exit\n")
+        print("* * * * * * * * * * * * * * * * * *")
         if flow == '1':
             user_input = task.show_upcoming_tasks_for_user(cursor, user_id)
             while user_input == 'yes':
