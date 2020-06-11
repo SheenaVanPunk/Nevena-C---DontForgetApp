@@ -1,4 +1,4 @@
-from Authentication import Authentication
+from UserAuthenticated import UserAuthenticated
 import mysql.connector
 
 from Database import Database
@@ -11,7 +11,7 @@ db = Database()
 # print(new.get_user_id())
 
 
-l = Authentication()
+l = UserAuthenticated()
 l.login_user(db)
 print(l.get_user_id())
 # hey = Authentication()

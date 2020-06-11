@@ -2,6 +2,8 @@ from datetime import time
 from datetime import date
 import calendar
 
+from Database import Database
+
 
 class Task:
     def __init__(self):
@@ -35,13 +37,15 @@ class Task:
         return self._due_time
 
     @staticmethod
-    def show_upcoming_tasks_for_user(db, user_id):
+    def show_upcoming_tasks_for_user(user_id):
         sql = "SELECT task_description, due_date, due_time, time_created " \
                 "FROM tasks " \
                 "JOIN users " \
                 "ON tasks.user_id = users.user_id " \
                 "WHERE tasks.user_id = %s AND tasks.due_date > NOW()"
+        db = Database()
         tasks = db.fetchall_results(sql, (user_id,))
+        db.close()
 
         if len(tasks) == 0:
             return input("You don't have any upcoming tasks. Would you like to create one now?\n"
@@ -58,7 +62,7 @@ class Task:
                 print("task created on:", task[3])
                 count += 1
 
-    def create_new_task(self, db, user_id):
+    def create_new_task(self, user_id):
         sql = "INSERT INTO tasks(user_id, task_description, due_date, due_time) " \
                 "VALUES(%s, %s, %s, %s)"
 
@@ -66,7 +70,10 @@ class Task:
         self.set_description()
         self.set_due_date()
         self.set_due_time()
-        db.commit_to_db(sql, (user_id, self.get_description(), self.get_due_date(), self.get_due_time()))
+        db = Database()
+        values = (user_id, self.get_description(), self.get_due_date(), self.get_due_time())
+        db.commit_to_db(sql, values)
+        db.close()
         print("Task successfully saved.\n")
 
     # prints only the tasks which due_date is in past comparing to the current moment
