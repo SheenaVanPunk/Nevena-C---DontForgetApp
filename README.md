@@ -13,7 +13,7 @@ This is a console application with 2 courses of action:
    
 ## Login flow 
 - While logging in user can repeat incorrectly entered password.
-- If account doesn't exist in the database, user will be offered to register account (TODO)
+- If account doesn't exist in the database, user will be offered to register account.
 
 ## Registration flow
 - After user enters the username, the program checks if it is unique. If not, user is offered to pick another username until the unique username is entered.
