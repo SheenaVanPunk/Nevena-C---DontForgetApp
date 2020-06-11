@@ -1,7 +1,10 @@
 from UserAuthenticated import UserAuthenticated
 from Task import Task
 
+
 class ProgramFlow:
+    def __init__(self):
+        print("inside Program Flow class")
 
     def main(self):
         print("Welcome to DontForget App!\nHere, you can save all the stuff you wouldn't like to forget "
@@ -44,3 +47,4 @@ class ProgramFlow:
         else:
             print("Invalid entry.")
             self.show_user_menu(user)
+

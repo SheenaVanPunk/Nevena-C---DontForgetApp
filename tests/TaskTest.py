@@ -1,4 +1,4 @@
-from Database import Database
+from db.Database import Database
 from Task import Task
 
 db = Database()
