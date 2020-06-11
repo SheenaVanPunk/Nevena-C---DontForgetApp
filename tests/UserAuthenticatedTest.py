@@ -1,8 +1,6 @@
 from UserAuthenticated import UserAuthenticated
-import mysql.connector
 
-from Database import Database
-from User import User
+from db.Database import Database
 
 db = Database()
 
