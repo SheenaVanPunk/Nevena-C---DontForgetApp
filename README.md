@@ -19,4 +19,4 @@ This is a console application with 2 courses of action:
 - After entering a password, a new account is recorded in db.
 
 ## Program Flow
-![FlowChat Image](https://github.com/SheenaVanPunk/DontForgetApp/blob/working/about/DontForgetApp%20ProgramFlow.jpg)
+![FlowChat Image](https://github.com/SheenaVanPunk/DontForgetApp/blob/master/flow%20chart/DontForgetApp%20ProgramFlow.jpg)
