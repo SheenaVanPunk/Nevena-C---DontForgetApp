@@ -55,7 +55,7 @@ class Task:
                 print("task description:", task[0])
                 print("due date:", calendar.day_name[task[1].weekday()], task[1])
                 print("due_time:", task[2])
-                # print("time until:", datetime.now())
+                # print("time until:", ... - datetime.now())
                 print("task created on:", task[3])
                 print(type(task[1]))
                 print(type(task[2]))

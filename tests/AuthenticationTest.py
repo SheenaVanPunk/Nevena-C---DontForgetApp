@@ -1,6 +1,8 @@
 from Authentication import Authentication
 import mysql.connector
 
+from User import User
+
 db = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -9,7 +11,7 @@ db = mysql.connector.connect(
 )
 
 cursor = db.cursor()
-
+"""
 new = Authentication()
 user_id = new.register_user(db, cursor)
 print(user_id)
@@ -46,3 +48,7 @@ print("Expected: correct user id")
 
 cursor.close()
 db.close()
+"""
+user = User()
+a = Authentication()
+a._check_if_account_exists(cursor, user)
