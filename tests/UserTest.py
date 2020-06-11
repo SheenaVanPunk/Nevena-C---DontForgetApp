@@ -14,9 +14,9 @@ cursor = db.cursor()
 
 
 user = User()
-user.set_username()
+user.input_username()
 username = user.get_username()
 print("Username taken from the object: ", username)
 
-user.set_password()
+user.input_password()
 
