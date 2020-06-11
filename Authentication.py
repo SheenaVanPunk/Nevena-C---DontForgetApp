@@ -74,14 +74,13 @@ class Authentication:
         cursor.execute(query_password.format(user.get_password()))
         results_p = cursor.fetchall()
         match = [(a, b) for (a, b) in results_u for (c, d) in results_p if (a == c) and (b == d)]
-        exist = False
 
-        if len(results_u) == 0:
+        if len(results_u) == 0:                             # username doesn't exists
             return False
-        elif len(match) == 1:
+        elif len(match) == 1:                               # username - password match
             return True
-        elif len(match) == 0:
-            while len(match) == 0:
+        elif len(match) == 0:                       # username-password mis-match: password either doesn't exist in db
+            while len(match) == 0:                  # or it doesn't match the entered username
                 print("Password incorrect. Try again.")
                 user.input_password()
                 cursor.execute(query_password.format(user.get_password()))
