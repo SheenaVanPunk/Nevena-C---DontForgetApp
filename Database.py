@@ -28,12 +28,18 @@ class Database:
     def execute(self, sql, params=None):
         self.get_cursor().execute(sql, params or ())
 
-    def fetchall(self):
+    def fetchall_results(self, sql, params=None):
+        self.get_cursor().execute(sql, params or ())
         return self.get_cursor().fetchall()
 
-    def fetchone(self):
+    def fetchone_result(self, sql, params=None):
+        self.get_cursor().execute(sql, params or ())
         return self.get_cursor().fetchone()
 
     def query_db(self, sql, params=None):
         self.get_cursor().execute(sql, params or ())
-        return self.fetchall()
+        return self.get_cursor().fetchall()
+
+    def commit_to_db(self, sql, params=None):
+        self.get_cursor().execute(sql, params or ())
+        self.get_db_connection().commit()

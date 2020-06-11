@@ -1,23 +1,17 @@
 import mysql.connector
 
 from Authentication import Authentication
+from Database import Database
 from Task import Task
 
 
 class ProgramFlow:
-    _db = mysql.connector.connect(   # TODO take db settings to a separate class
-        host="localhost",
-        user="root",
-        password="root",
-        database="todo_db"
-    )
-    _cursor = _db.cursor()
 
-    def main(self, _db, _cursor):
+    def main(self):
+        db = Database()
+        print("Welcome to DontForget App!\nHere, you can save all the stuff you wouldn't like to forget "
+              "and review them later.\n")
         auth = Authentication()
-        print("Welcome to DontForget App!\nHere, you can save all the stuff you wouldn't like to forget and review them "
-              "later.\n")
-
         self.authenticate_user(_db, _cursor, auth)
         self.show_user_menu(_db, _cursor, auth)
 
