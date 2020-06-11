@@ -40,7 +40,6 @@ class ProgramFlow:
         task = Task()
         user_id = auth.get_user_id()
         flow = input("1) See my upcoming tasks\n2) Save a new task\n3) Exit\n")
-        print("* * * * * * * * * * * * * * * * * *")
         if flow == '1':
             user_input = task.show_upcoming_tasks_for_user(cursor, user_id)
             while user_input == 'yes':

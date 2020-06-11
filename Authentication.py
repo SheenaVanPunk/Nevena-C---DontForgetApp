@@ -73,26 +73,22 @@ class Authentication:
 
         cursor.execute(query_password.format(user.get_password()))
         results_p = cursor.fetchall()
-
-        if len(results_u) > 0 and len(results_p) > 0:
-            match = [(a, b) for (a, b) in results_u for (c, d) in results_p if (a == c) and (b == d)]
-            if len(match) == 1:
-                return True
-            else:
-                return False
+        match = [(a, b) for (a, b) in results_u for (c, d) in results_p if (a == c) and (b == d)]
+        exist = False
 
         if len(results_u) == 0:
             return False
-
-        if len(results_p) == 0:
-            while len(result_p) == 0:
+        elif len(match) == 1:
+            return True
+        elif len(match) == 0:
+            while len(match) == 0:
                 print("Password incorrect. Try again.")
                 user.input_password()
                 cursor.execute(query_password.format(user.get_password()))
-                result_p = cursor.fetchall()
-                if len(results_p) > 0 and result_p[0] == results_u[0]:
+                results_p = cursor.fetchall()
+                match = [(a, b) for (a, b) in results_u for (c, d) in results_p if (a == c) and (b == d)]
+                if len(match) == 1:
                     return True
-        return False
 
     @staticmethod
     def _convert_tuple_list_to_user_object_list(tuples_list):
@@ -104,5 +100,3 @@ class Authentication:
             user.set_password(i[2])
             objects_list.append(user)
         return objects_list
-
-
