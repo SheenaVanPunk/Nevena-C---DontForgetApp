@@ -19,15 +19,17 @@ cursor = db.cursor()
 # task1.create_new_task(db, cursor, 3)
 # task1.show_all_tasks_for_user(cursor, 3)
 
-task2 = Task()
-task2.set_due_time()
-t = task2.get_due_time()
+# task2 = Task()
+# task2.set_due_time()
+# t = task2.get_due_time()
 
 # task3 = Task()
 # task3.set_due_date();
 # date = task3.get_due_date()
 # print(date)
 
+t = Task()
+t.create_new_task(db, cursor, 1)
 
 tasks4 = Task()
-tasks4.show_upcoming_tasks_for_user(cursor, 3)
+tasks4.show_upcoming_tasks_for_user(cursor, 1)
