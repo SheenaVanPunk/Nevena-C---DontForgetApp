@@ -1,22 +1,27 @@
-from Authentication import Authentication
+from UserAuthenticated import UserAuthenticated
 import mysql.connector
 
+from Database import Database
 from User import User
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="todo_db"
-)
+db = Database()
 
-cursor = db.cursor()
-"""
-new = Authentication()
-user_id = new.register_user(db, cursor)
-print(user_id)
+# new = Authentication()
+# new.register_user(db)
+# print(new.get_user_id())
 
 
+l = UserAuthenticated()
+l.login_user(db)
+print(l.get_user_id())
+# hey = Authentication()
+# user_id = hey._get_user_id_from_db(db, values=('kokica', 'kokica'))
+# print(user_id)
+# user = User()
+# l1 = Authentication()
+# result = l1._check_if_account_exists(db, user)
+# print(result)
+'''
 # username exists, correct password
 # "nairobi", "vrlotajnalozinka"
 user1 = Authentication()
@@ -48,8 +53,9 @@ print("Expected: correct user id")
 
 cursor.close()
 db.close()
-"""
+
 user = User()
 a = Authentication()
 exists = a._check_if_account_exists(cursor, user)
 print(exists)
+'''

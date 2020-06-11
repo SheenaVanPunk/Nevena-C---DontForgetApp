@@ -1,23 +1,16 @@
+from Database import Database
 from Task import Task
-import mysql.connector
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="todo_db"
-)
-
-cursor = db.cursor()
+db = Database()
 
 # task = Task()
 # task.set_due_date()
 # date = task.get_due_date()
 # print(date)
 #
-# task1 = Task()
-# task1.create_new_task(db, cursor, 3)
-# task1.show_all_tasks_for_user(cursor, 3)
+task1 = Task()
+task1.create_new_task(db, 3)
+task1.show_upcoming_tasks_for_user(db, 3)
 
 # task2 = Task()
 # task2.set_due_time()
@@ -27,9 +20,9 @@ cursor = db.cursor()
 # task3.set_due_date();
 # date = task3.get_due_date()
 # print(date)
-
+"""
 t = Task()
-t.create_new_task(db, cursor, 1)
+t.create_new_task(db, 1)
 
 tasks4 = Task()
-tasks4.show_upcoming_tasks_for_user(cursor, 1)
+tasks4.show_upcoming_tasks_for_user(db, 1)"""
