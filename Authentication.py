@@ -38,7 +38,7 @@ class Authentication:
         values = (user.get_username(), user.get_password())
         db.commit_to_db(sql, values)
         print("You account is successfully registered, " + user.get_username().title() + "!")
-        return self._get_user_id_from_db(db, values)
+        return self._get_user_id_from_db(db, user)
 
     @staticmethod
     def _get_user_id_from_db(db, user):

@@ -1,17 +1,11 @@
-import mysql.connector
-
+from Database import Database
 from ProgramFlow import ProgramFlow
+from User import User
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="todo_db"
-)
-
-cursor = db.cursor()
-
-
+db = Database()
+user = User()
 program1 = ProgramFlow()
-user_id = program1.main(db, cursor)
+program1.main()
+
+# program1.show_user_menu(db, user)
 

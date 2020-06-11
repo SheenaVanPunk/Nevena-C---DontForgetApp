@@ -1,4 +1,3 @@
-
 class User:
     def __init__(self):
         self._user_id = 0
@@ -10,6 +9,9 @@ class User:
 
     def get_password(self):
         return self._password
+
+    def get_user_id(self):
+        return self._user_id
 
     def set_username(self, username):
         self._username = username
