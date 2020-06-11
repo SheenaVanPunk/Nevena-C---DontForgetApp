@@ -51,4 +51,5 @@ db.close()
 """
 user = User()
 a = Authentication()
-a._check_if_account_exists(cursor, user)
+exists = a._check_if_account_exists(cursor, user)
+print(exists)

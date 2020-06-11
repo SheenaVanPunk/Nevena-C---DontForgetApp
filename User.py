@@ -2,8 +2,8 @@
 class User:
     def __init__(self):
         self._user_id = 0
-        self._username = "kokica"
-        self._password = "kokica"
+        self._username = ""
+        self._password = ""
 
     def get_username(self):
         return self._username

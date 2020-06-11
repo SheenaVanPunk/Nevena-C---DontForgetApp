@@ -57,19 +57,17 @@ class Task:
                 print("due_time:", task[2])
                 # print("time until:", ... - datetime.now())
                 print("task created on:", task[3])
-                print(type(task[1]))
-                print(type(task[2]))
                 count += 1
 
     def create_new_task(self, db, cursor, user_id):
-        query = "INSERT INTO tasks(user_id, task_description, due_date) " \
-                "VALUES({0}, '{1}', '{2}')"
+        query = "INSERT INTO tasks(user_id, task_description, due_date, due_time) " \
+                "VALUES({0}, '{1}', '{2}', '{3}')"
 
         print("To save a new task, you will have to enter task description and time when the task is due.")
         self.set_description()
         self.set_due_date()
         self.set_due_time()
-        cursor.execute(query.format(user_id, self.get_description(), self.get_due_date()))
+        cursor.execute(query.format(user_id, self.get_description(), self.get_due_date(), self.get_due_time()))
         db.commit()
         print("Task successfully saved.\n")
 

@@ -65,34 +65,33 @@ class Authentication:
 
     def _check_if_account_exists(self, cursor, user):
         # looking for a username-password match
-        query_username = "SELECT * FROM users WHERE username = '{}'"
-        query_password = "SELECT * FROM users WHERE password = '{}'"
+        query_username = "SELECT username, password FROM users WHERE username = '{}'"
+        query_password = "SELECT username, password FROM users WHERE password = '{}'"
 
         cursor.execute(query_username.format(user.get_username()))
-        resu = cursor.fetchall()
-        result_u = self._convert_tuple_list_to_user_object_list(resu)
-        cursor.execute(query_password.format(user.get_password()))
-        resp = cursor.fetchall()
-        result_p = self._convert_tuple_list_to_user_object_list(resp)
+        results_u = cursor.fetchall()
 
-        if len(result_u) > 0 and len(result_p) > 0:
-            if result_u[0] == result_p[0]:
+        cursor.execute(query_password.format(user.get_password()))
+        results_p = cursor.fetchall()
+
+        if len(results_u) > 0 and len(results_p) > 0:
+            match = [(a, b) for (a, b) in results_u for (c, d) in results_p if (a == c) and (b == d)]
+            if len(match) == 1:
                 return True
             else:
                 return False
 
-        if len(result_u) == 0:
+        if len(results_u) == 0:
             return False
 
-        if len(result_p) == 0:
+        if len(results_p) == 0:
             while len(result_p) == 0:
                 print("Password incorrect. Enter your password again.")
                 user.input_password()
                 cursor.execute(query_password.format(user.get_password()))
                 result_p = cursor.fetchall()
-                if len(result_p) > 0 and result_p[0] == result_u[0]:
+                if len(results_p) > 0 and result_p[0] == results_u[0]:
                     return True
-
         return False
 
     @staticmethod
