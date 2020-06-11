@@ -1,4 +1,4 @@
-# DontForgetApp
+# Don't Forget App
 
 [Testoper Codeathon](https://testoper.com/portfolio/testoper_codeathon/) - Beginner Track final project
 
