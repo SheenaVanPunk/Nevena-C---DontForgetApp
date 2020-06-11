@@ -13,8 +13,12 @@ class User:
 
     def set_username(self):
         self._username = input("Enter username: \n")
+        if self._username =="":
+            self.set_username()
 
     def set_password(self):
         self._password = input("Enter password: \n")
+        if self._password == "":
+            self.set_password()
 
 
