@@ -66,10 +66,11 @@ class Authentication:
         query_password = "SELECT * FROM users WHERE password = '{}'"
 
         cursor.execute(query_username.format(username))
-        result_u = cursor.fetchall()
-
+        resu = cursor.fetchall()
+        result_u = [",".join(i) for i in resu]
         cursor.execute(query_password.format(password))
-        result_p = cursor.fetchall()
+        resp = cursor.fetchall()
+        result_p = [",".join(i+1) for i in resp]
 
         if len(result_u) > 0 and len(result_p) > 0:
             if result_u[0] == result_p[0]:

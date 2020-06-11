@@ -1,32 +1,47 @@
 from datetime import datetime
+from datetime import time
+from datetime import date
+import calendar
+
 
 class Task:
     def __init__(self):
         self._description = ""
-        self._task_due = ""  # type date
+        self._due_date = ""  # MySql type DATE
+        self._due_time = ""  # MySql type TIME
 
     def set_description(self):
-        self._description = input("Enter task description:\n")
+        self._description = input("What would you like to be reminded of?\n")
 
     def get_description(self):
         return self._description
 
-    def set_task_due(self):
-        print("When is the task due?\n")
+    def set_due_date(self):
+        print("When is the task due? (format: YYYY MM DD)\n")
         year = int(input("Year: "))
-        month = int(input("Month: "))
+        month = int(input("Month: "))  #accepts 2 different formatting: 06, 6, TODO should accept "June" as 3rd formating
         day = int(input("Day: "))
-        self._task_due = datetime(year, month, day).date().strftime('%Y-%m-%d')
+        self._due_date = date(year, month, day).strftime('%Y-%m-%d')
 
-    def get_task_due(self):
-        return self._task_due
+    def set_due_time(self):
+        print("\nTime? (format: HH:MM)")
+        h = int(input("Hour: "))
+        m = int(input("Minutes: "))
+        self._due_time = time(h, m).strftime('%H:%M')
 
-    def show_all_tasks_for_user(self, cursor, user_id):
-        query = "SELECT task_description, task_due, time_created " \
+    def get_due_date(self):
+        return self._due_date
+
+    def get_due_time(self):
+        return self._due_time
+
+    @staticmethod
+    def show_upcoming_tasks_for_user(cursor, user_id):
+        query = "SELECT task_description, due_date, due_time, time_created " \
                 "FROM tasks " \
                 "JOIN users " \
                 "ON tasks.user_id = users.user_id " \
-                "WHERE tasks.user_id = {}"
+                "WHERE tasks.user_id = {} AND tasks.due_date > NOW()"
         cursor.execute(query.format(user_id))
         tasks = cursor.fetchall()
         if len(tasks) == 0:
@@ -37,25 +52,28 @@ class Task:
             for task in tasks:
                 print("-----------------------------")
                 print("TASK #", count)
-                print("task description: ", task[0])
-                print("task due: ", task[1])
-                print("task created on:", task[2])
+                print("task description:", task[0])
+                print("due date:", calendar.day_name[task[1].weekday()], task[1])
+                print("due_time:", task[2])
+                # print("time until:", datetime.now())
+                print("task created on:", task[3])
+                print(type(task[1]))
+                print(type(task[2]))
                 count += 1
 
     def create_new_task(self, db, cursor, user_id):
-        query = "INSERT INTO tasks(user_id, task_description, task_due) " \
+        query = "INSERT INTO tasks(user_id, task_description, due_date) " \
                 "VALUES({0}, '{1}', '{2}')"
 
         print("To save a new task, you will have to enter task description and time when the task is due.")
         self.set_description()
-        self.set_task_due()
-        cursor.execute(query.format(user_id, self.get_description(), self.get_task_due()))
+        self.set_due_date()
+        self.set_due_time()
+        cursor.execute(query.format(user_id, self.get_description(), self.get_due_date()))
         db.commit()
         print("Task successfully saved.\n")
 
-# def get_time_created(self, cursor, task_id):
-#     query = "SELECT time_created FROM tasks WHERE task_id = {}";
-#     cursor.execute(query.format(task_id))
-#     time_created = cursor.fetchone()[0]
-#     return time_created
-# self._time_created = ""  # type datetime
+    # prints only the tasks which due_date is in past comparing to the current moment
+    def show_historical_tasks_for_user(self, cursor, user_id):
+        pass
+
