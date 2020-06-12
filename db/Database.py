@@ -30,9 +30,7 @@ class Database:
 
     def fetchall_results(self, sql, params=None):
         self.get_cursor().execute(sql, params or ())
-        results = self.get_cursor().fetchall()
-        self.get_db_connection().close()
-        return results
+        return self.get_cursor().fetchall()
 
     def fetchone_result(self, sql, params=None):
         self.get_cursor().execute(sql, params or ())

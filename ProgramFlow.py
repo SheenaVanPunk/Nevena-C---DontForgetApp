@@ -4,7 +4,7 @@ from Task import Task
 
 class ProgramFlow:
     def __init__(self):
-        print("inside Program Flow class")
+        print("start")
 
     def main(self):
         print("Welcome to DontForget App!\nHere, you can save all the stuff you wouldn't like to forget "

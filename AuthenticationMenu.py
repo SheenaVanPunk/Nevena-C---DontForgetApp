@@ -77,6 +77,7 @@ class UserAuthenticated:
         db = Database()
         results_u = db.fetchall_results(sql_username, (values[0],))
         results_p = db.fetchall_results(sql_password, (values[1],))
+        db.close()
         # bug: ignoring the letter case with this list comprehension
         match = [(a, b) for (a, b) in results_u for (c, d) in results_p if (a == c) and (b == d)]
 
