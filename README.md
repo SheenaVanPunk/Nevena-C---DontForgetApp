@@ -1,7 +1,6 @@
 # Don't Forget App
 
 [Testoper Codeathon](https://testoper.com/portfolio/testoper_codeathon/) - Beginner Track final project
-by Nevena C.
 
 This is a console application with 2 courses of action:
 1. User is asked to authenticate through logging in or registering a new account.
