@@ -1,5 +1,6 @@
 from AuthenticationMenu import UserAuthenticated
 from Task import Task
+from UserMenu import UserMenu
 
 
 class ProgramFlow:
@@ -29,18 +30,18 @@ class ProgramFlow:
     def show_user_menu(self, user):
         print("* * * * * * * * * * * * * * * * * *")
         print("What would you like to do today?")
-        task = Task()
+        menu = UserMenu()
         user_id = user.get_user_id()
         flow = input("1) See my upcoming tasks\n2) Save a new task\n3) Exit\n")
         if flow == '1':
-            user_input = task.show_upcoming_tasks_for_user(user_id)
+            user_input = menu.show_upcoming_tasks_for_user(user_id)
             if user_input == 'yes':
-                task.create_new_task(user_id)
+                menu.create_new_task(user_id)
                 self.show_user_menu(user)
             else:
                 self.show_user_menu(user)
         elif flow == '2':
-            task.create_new_task(user_id)
+            menu.create_new_task(user_id)
             self.show_user_menu(user)
         elif flow == '3':
             print("\nSad to see you go!")
