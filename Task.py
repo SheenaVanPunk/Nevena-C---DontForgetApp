@@ -45,7 +45,6 @@ class Task:
                 "WHERE tasks.user_id = %s AND tasks.due_date > NOW()"
         db = Database()
         tasks = db.fetchall_results(sql, (user_id,))
-        db.close()
 
         if len(tasks) == 0:
             return input("You don't have any upcoming tasks. Would you like to create one now?\n"
@@ -73,7 +72,6 @@ class Task:
         db = Database()
         values = (user_id, self.get_description(), self.get_due_date(), self.get_due_time())
         db.commit_to_db(sql, values)
-        db.close()
         print("Task successfully saved.\n")
 
     # prints only the tasks which due_date is in past comparing to the current moment

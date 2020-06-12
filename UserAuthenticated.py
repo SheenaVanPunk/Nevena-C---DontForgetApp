@@ -40,7 +40,6 @@ class UserAuthenticated:
 
         db = Database()
         db.commit_to_db(sql, values)
-        db.close()
         print("You account is successfully registered, " + user.get_username().title() + "!")
         return self._get_user_id_from_db(user)
 
@@ -50,7 +49,6 @@ class UserAuthenticated:
         values = (user.get_username(), user.get_password())
         db = Database()
         results = db.fetchone_result(sql, values)
-        db.close()
         return results[0]
 
     @staticmethod
@@ -68,7 +66,6 @@ class UserAuthenticated:
         sql = "SELECT username FROM users"
         db = Database()
         list_of_tuples = db.query_db(sql, )
-        db.close()
         return ["".join(i) for i in list_of_tuples]
 
     def _check_if_account_exists(self, user):
@@ -80,7 +77,6 @@ class UserAuthenticated:
         db = Database()
         results_u = db.fetchall_results(sql_username, (values[0],))
         results_p = db.fetchall_results(sql_password, (values[1],))
-        db.close()
         # bug: ignoring the letter case with this list comprehension
         match = [(a, b) for (a, b) in results_u for (c, d) in results_p if (a == c) and (b == d)]
 
@@ -95,7 +91,6 @@ class UserAuthenticated:
                 pw_value = user.get_password()
                 db = Database()
                 results_p = db.fetchall_results(sql_password, (pw_value,))
-                db.close()
                 match = [(a, b) for (a, b) in results_u for (c, d) in results_p if (a == c) and (b == d)]
                 if len(match) == 1:
                     return True
