@@ -1,4 +1,4 @@
-from UserAuthenticated import UserAuthenticated
+from AuthenticationMenu import UserAuthenticated
 
 from db.Database import Database
 

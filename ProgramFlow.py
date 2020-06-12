@@ -1,4 +1,4 @@
-from UserAuthenticated import UserAuthenticated
+from AuthenticationMenu import UserAuthenticated
 from Task import Task
 
 
