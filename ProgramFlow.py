@@ -1,5 +1,4 @@
 from AuthenticationMenu import UserAuthenticated
-from Task import Task
 from UserMenu import UserMenu
 
 

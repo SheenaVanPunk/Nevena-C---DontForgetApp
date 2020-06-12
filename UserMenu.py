@@ -9,7 +9,8 @@ class UserMenu:
     def __init__(self):
         self._task = Task()
 
-    def show_upcoming_tasks_for_user(self, user_id):
+    @staticmethod
+    def show_upcoming_tasks_for_user(user_id):
         sql = "SELECT task_description, due_date, due_time, time_created " \
               "FROM tasks " \
               "JOIN users " \
@@ -17,6 +18,7 @@ class UserMenu:
               "WHERE tasks.user_id = %s AND tasks.due_date > NOW()"
         db = Database()
         tasks = db.fetchall_results(sql, (user_id,))
+        db.close()
 
         if len(tasks) == 0:
             return input("You don't have any upcoming tasks. Would you like to create one now?\n"
