@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: "[MODULEL] - Path - Error causing unexpected behavior"
+title: "[MODULE] - Path - Error causing unexpected behavior"
 labels: ''
 assignees: ''
 
