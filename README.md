@@ -2,6 +2,9 @@
 
 [Testoper Codeathon](https://testoper.com/portfolio/testoper_codeathon/) - Beginner Track final project
 
+## Program Flow
+![FlowChat Image](https://github.com/SheenaVanPunk/DontForgetApp/blob/master/flow%20chart/DontForgetApp%20ProgramFlow.jpg)
+
 This is a console application with 2 courses of action:
 1. User is asked to authenticate through logging in or registering a new account.
    - local MySql database is queried for confirming the existing account or for recording a new one.
@@ -18,5 +21,4 @@ This is a console application with 2 courses of action:
 - After user enters the username, the program checks if it is unique. If not, user is offered to pick another username until the unique username is entered.
 - After entering a password, a new account is recorded in db.
 
-## Program Flow
-![FlowChat Image](https://github.com/SheenaVanPunk/DontForgetApp/blob/master/flow%20chart/DontForgetApp%20ProgramFlow.jpg)
+
